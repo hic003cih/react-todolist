@@ -1,4 +1,5 @@
 import React, { Component,Fragment } from 'react';
+import './index.css';
 
 class TodoList extends Component {
   constructor(props){
@@ -9,6 +10,7 @@ class TodoList extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   handleInputChange(event){
 
@@ -25,6 +27,19 @@ class TodoList extends Component {
     // this.state.value.push(this.state.input);
 
     event.preventDefault();
+  }
+  handleDelete(index){
+    const list = [...this.state.value];
+    list.splice(index,1);
+
+    // this.setState({
+    //   value:list
+    // })
+    this.setState( () => ({
+      value: list
+    }))
+    alert(index + list);
+
   }
   render() {
     return (
@@ -43,7 +58,10 @@ class TodoList extends Component {
            {
             this.state.value.map( (item, index) =>{
               return <li key={index}>
-              <span>{index}. {item}</span></li>
+              <span>{index}. {item}</span>
+              <span className="icon-close"
+              onClick={ this.handleDelete(index)}>X</span>
+              </li>
             })
           } 
         </ul>
