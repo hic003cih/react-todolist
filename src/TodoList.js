@@ -1,5 +1,6 @@
 import React, { Component,Fragment } from 'react';
 import './index.css';
+import TodoItem from './TodoItem';
 
 class TodoList extends Component {
   constructor(props){
@@ -10,7 +11,7 @@ class TodoList extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
   }
   handleInputChange(event){
 
@@ -28,7 +29,7 @@ class TodoList extends Component {
 
     event.preventDefault();
   }
-  handleDelete(index){
+  handleItemDelete(index){
     const list = [...this.state.value];
     list.splice(index,1);
 
@@ -41,6 +42,15 @@ class TodoList extends Component {
     alert(index + list);
 
   }
+  getTodoItem(){
+    return   this.state.value.map( (item, index) =>{
+      return <TodoItem key={index} 
+      item={item} 
+      index={index}
+      handleItemDelete={this.handleItemDelete}></TodoItem>
+    })
+  }
+
   render() {
     return (
       <Fragment>
@@ -55,7 +65,8 @@ class TodoList extends Component {
             <span>X</span>
           </li>
           <li>2</li> */}
-           {
+
+           {/* {
             this.state.value.map( (item, index) =>{
               return <li key={index}>
               <span>{index}. {item}</span>
@@ -63,7 +74,10 @@ class TodoList extends Component {
               onClick={ this.handleDelete(index)}>X</span>
               </li>
             })
-          } 
+          }  */}
+
+          {/* <TodoItem value={this.state.value} handleItemDelete={this.handleDelete}></TodoItem> */}
+          {this.getTodoItem()}
         </ul>
       </div>
       </Fragment>
